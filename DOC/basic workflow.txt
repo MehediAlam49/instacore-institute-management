@@ -19,3 +19,4 @@
 		> anyone change there own password from there profile section
 - IF anyone click Enroll Now on index > redirect signup.html
 - IF anyone click Apply Now on index > redirect and work for Apply jobs
+- If anyone open index page after login, thay can view all just do not need show login/signup > get (Notifications and Profile)

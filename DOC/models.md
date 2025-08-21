@@ -12,7 +12,6 @@ class User(AbstractUser):
         ('employee', 'Employee'),
         ('student', 'Student'),
         ('candidate', 'Candidate'),
-        ('job_seeker', 'Job Seeker'),
     ]
     SUBROLE_CHOICES = [
         ('faculty', 'Faculty'),
