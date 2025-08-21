@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InstaCore - Instruction Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4a6bdf;
+            --secondary-color: #6c63ff;
+            --accent-color: #ff6584;
+            --text-color: #333;
+            --light-gray: #f8f9fa;
+            --dark-gray: #6c757d;
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            scroll-behavior: smooth;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .logo i {
+            margin-right: 0.5rem;
+            font-size: 2rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            display: inline-block;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+        
+        .btn-white {
+            background-color: var(--white);
+            color: var(--primary-color);
+            border: 2px solid var(--white);
+        }
+        
+        .btn-white:hover {
+            background-color: transparent;
+            color: var(--white);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 12rem 0 8rem;
+            margin-top: 70px;
+            text-align: center;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero p {
+            font-size: 1.4rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 4rem 0;
+            scroll-margin-top: 80px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .section-title p {
+            color: var(--dark-gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* About Section */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-image {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .about-image img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Table Styles */
+        .table-container {
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: var(--light-gray);
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        /* Team Section */
+        .team {
+            background-color: var(--light-gray);
+        }
+        
+        .team-members {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .team-member {
+            text-align: center;
+            width: 250px;
+        }
+        
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 4px solid var(--white);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .team-member h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .team-member p {
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+        }
+        
+        .team-member a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        /* Contact Section */
+        .contact-form {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: #333;
+            color: var(--white);
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-column ul li a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--white);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--white);
+            transition: background-color 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-color);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bbb;
+        }
+        
+        .copyright a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        /* Responsive Styles */
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--white);
+                flex-direction: column;
+                align-items: center;
+                padding: 1rem 0;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                display: none;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 0.5rem 0;
+            }
+            
+            .hero {
+                padding: 8rem 0 6rem;
+                min-height: 80vh;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>InstaCore</span>
+                </div>
+                <div class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#" class="nav-link">Home</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#courses" class="nav-link">Courses</a></li>
+                    <li><a href="building.html">Login</a></li>
+                    <li><a href="building.html" class="btn">Sign up as student</a></li>
+                    <li><a href="#career" class="nav-link">Career</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Explore Courses</h1>
+            <p>Discover a world of knowledge with our comprehensive instruction management system designed to enhance your learning experience.</p>
+            <a href="#courses" class="btn btn-white">Get Started</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About InstaCore Institute</h2>
+                <p>Learn more about our premier educational institution</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>InstaCore Institute is a premier educational institution dedicated to providing world-class instruction and learning opportunities. Our state-of-the-art facilities and innovative teaching methods create an environment where students can thrive academically and personally.</p>
+                    <p>Founded with a vision to transform education, our institute combines traditional academic values with modern technology to deliver a comprehensive learning experience. We offer a wide range of programs designed to meet the diverse needs of our student body.</p>
+                    <p>Our faculty consists of highly qualified educators who are experts in their respective fields. They are committed to nurturing the intellectual growth of our students and preparing them for successful careers in an ever-changing global landscape.</p>
+                    <a href="building.html" class="btn">Learn More</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://picsum.photos/seed/university/500/400.jpg" alt="InstaCore Institute">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses" class="courses">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Courses</h2>
+                <p>Explore our wide range of live courses</p>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Course Name</th>
+                            <th>Instructor</th>
+                            <th>Duration</th>
+                            <th>Level</th>
+                            <th>Enrollment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Introduction to Web Development</td>
+                            <td>John Smith</td>
+                            <td>8 weeks</td>
+                            <td>Beginner</td>
+                            <td><a href="building.html" class="btn">Enroll Now</a></td>
+                        </tr>
+                        <tr>
+                            <td>Advanced JavaScript Concepts</td>
+                            <td>Sarah Johnson</td>
+                            <td>6 weeks</td>
+                            <td>Intermediate</td>
+                            <td><a href="building.html" class="btn">Enroll Now</a></td>
+                        </tr>
+                        <tr>
+                            <td>Data Science Fundamentals</td>
+                            <td>Michael Chen</td>
+                            <td>10 weeks</td>
+                            <td>Beginner</td>
+                            <td><a href="building.html" class="btn">Enroll Now</a></td>
+                        </tr>
+                        <tr>
+                            <td>Mobile App Development with React Native</td>
+                            <td>Emily Rodriguez</td>
+                            <td>8 weeks</td>
+                            <td>Intermediate</td>
+                            <td><a href="building.html" class="btn">Enroll Now</a></td>
+                        </tr>
+                        <tr>
+                            <td>Machine Learning Basics</td>
+                            <td>David Wilson</td>
+                            <td>12 weeks</td>
+                            <td>Advanced</td>
+                            <td><a href="building.html" class="btn">Enroll Now</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Section -->
+    <section id="career" class="career">
+        <div class="container">
+            <div class="section-title">
+                <h2>Career in InstaCore</h2>
+                <p>Join our team and help shape the future of education</p>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th>Department</th>
+                            <th>Location</th>
+                            <th>Type</th>
+                            <th>Apply</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Frontend Developer</td>
+                            <td>Engineering</td>
+                            <td>Remote</td>
+                            <td>Full-time</td>
+                            <td><a href="building.html" class="btn">Apply Now</a></td>
+                        </tr>
+                        <tr>
+                            <td>UX/UI Designer</td>
+                            <td>Design</td>
+                            <td>New York</td>
+                            <td>Full-time</td>
+                            <td><a href="building.html" class="btn">Apply Now</a></td>
+                        </tr>
+                        <tr>
+                            <td>Content Creator</td>
+                            <td>Education</td>
+                            <td>Remote</td>
+                            <td>Part-time</td>
+                            <td><a href="building.html" class="btn">Apply Now</a></td>
+                        </tr>
+                        <tr>
+                            <td>Marketing Specialist</td>
+                            <td>Marketing</td>
+                            <td>San Francisco</td>
+                            <td>Full-time</td>
+                            <td><a href="building.html" class="btn">Apply Now</a></td>
+                        </tr>
+                        <tr>
+                            <td>Customer Support Representative</td>
+                            <td>Support</td>
+                            <td>Remote</td>
+                            <td>Full-time</td>
+                            <td><a href="building.html" class="btn">Apply Now</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team">
+        <div class="container">
+            <div class="section-title">
+                <h2>Meet Developer Team</h2>
+                <p>Get to know the talented individuals behind InstaCore</p>
+            </div>
+            <div class="team-members">
+                <div class="team-member">
+                    <img src="https://picsum.photos/seed/khalid/150/150.jpg" alt="Khalid Mahmud">
+                    <h3>Khalid Mahmud</h3>
+                    <p>Team Leader, Backend</p>
+                    <a href="https://github.com/skhalidmahmud/" target="_blank">
+                        <i class="fab fa-github"></i> GitHub Profile
+                    </a>
+                </div>
+                <div class="team-member">
+                    <img src="https://picsum.photos/seed/humaira/150/150.jpg" alt="Humaira Akter">
+                    <h3>Humaira Akter</h3>
+                    <p>Design & UI/UX, Ideation</p>
+                    <a href="https://github.com/humairaaktershanti/" target="_blank">
+                        <i class="fab fa-github"></i> GitHub Profile
+                    </a>
+                </div>
+                <div class="team-member">
+                    <img src="https://picsum.photos/seed/mehedi/150/150.jpg" alt="Mehedi Alam">
+                    <h3>Mehedi Alam</h3>
+                    <p>Project Manager, Full-stack Support</p>
+                    <a href="https://github.com/MehediAlam49" target="_blank">
+                        <i class="fab fa-github"></i> GitHub Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Get In Touch</h2>
+                <p>We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+            </div>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Your Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Social Links</h3>
+                    <div class="social-links">
+                        <a href="building.html"><i class="fab fa-facebook-f"></i></a>
+                        <a href="building.html"><i class="fab fa-twitter"></i></a>
+                        <a href="building.html"><i class="fab fa-instagram"></i></a>
+                        <a href="building.html"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="building.html"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#" class="footer-link">Home</a></li>
+                        <li><a href="#about" class="footer-link">About Us</a></li>
+                        <li><a href="#courses" class="footer-link">Courses</a></li>
+                        <li><a href="#career" class="footer-link">Careers</a></li>
+                        <li><a href="#contact" class="footer-link">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Shymoli, Dhaka</li>
+                        <li><i class="fas fa-phone"></i> +880 1403 xxx-x26</li>
+                        <li><i class="fas fa-envelope"></i> instacore@thinkori.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2025 InstaCore. All rights reserved. | Dev by <a href="https://github.com/ThinkOri" target="_blank">ThinkOri</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+
+        // Form submission
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-link, .footer-link').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                
+                // Handle Home link separately
+                if (targetId === '#') {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        // Close mobile menu if open
+                        document.getElementById('navLinks').classList.remove('active');
+                        
+                        // Smooth scroll to target
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 70, // Offset for fixed header
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -5,7 +5,7 @@
 InstraCore is a role-based Institute Management System built with
 **Django**.\
 The system provides dashboards and features tailored to each role
-(Admin, Employee, Student) with strict permission control.
+(Admin, Employee, Student, Candidate) with strict permission control.
 
 ------------------------------------------------------------------------
 
@@ -29,12 +29,12 @@ instracore/
 │   ├── urls.py
 │   ├── forms.py
 │   └── templates/
-│       └── AuthApp/
-│           ├── master.html
-│           ├── login.html
-│           ├── register.html
-│           ├── profile.html
-│           └── notifications.html
+│       ├── master.html
+│       ├── login.html
+│       ├── register.html
+│       ├── profile.html
+│       ├── notifications.html
+│       └── setup.html
 ├── AdminApp/
 │   ├── __init__.py
 │   ├── admin.py
@@ -43,14 +43,13 @@ instracore/
 │   ├── views.py
 │   ├── urls.py
 │   └── templates/
-│       └── AdminApp/
-│           ├── dashboard.html
-│           ├── users.html
-│           ├── courses.html
-│           ├── attendance.html
-│           ├── events.html
-│           ├── accounts.html
-│           └── reports.html
+│       ├── dashboard.html
+│       ├── users.html
+│       ├── courses.html
+│       ├── attendance.html
+│       ├── events.html
+│       ├── accounts.html
+│       └── reports.html
 ├── EmployeeApp/
 │   ├── __init__.py
 │   ├── admin.py
@@ -59,12 +58,11 @@ instracore/
 │   ├── views.py
 │   ├── urls.py
 │   └── templates/
-│       └── EmployeeApp/
-│           ├── faculty_dashboard.html
-│           ├── hr_dashboard.html
-│           ├── finance_dashboard.html
-│           ├── teacher_dashboard.html
-│           └── other_dashboard.html
+│       ├── faculty_dashboard.html
+│       ├── hr_dashboard.html
+│       ├── finance_dashboard.html
+│       ├── teacher_dashboard.html
+│       └── other_dashboard.html
 ├── StudentApp/
 │   ├── __init__.py
 │   ├── admin.py
@@ -73,13 +71,21 @@ instracore/
 │   ├── views.py
 │   ├── urls.py
 │   └── templates/
-│       └── StudentApp/
-│           ├── dashboard.html
-│           ├── academics.html
-│           ├── finance.html
-│           ├── resources.html
-│           ├── certificates.html
-│           └── courses.html
+│       ├── dashboard.html
+│       ├── academics.html
+│       ├── finance.html
+│       ├── resources.html
+│       ├── certificates.html
+│       └── courses.html
+├── CandidateApp/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── views.py
+│   ├── urls.py
+│   └── templates/
+│       └── dashboard.html
 └── static/
     ├── css/
     │   └── style.css
@@ -325,6 +331,7 @@ class User(AbstractUser):
         ('admin', 'Admin'),
         ('employee', 'Employee'),
         ('student', 'Student'),
+        ('candidate', 'Candidate')
     ]
     SUBROLE_CHOICES = [
         ('faculty', 'Faculty'),
@@ -334,9 +341,6 @@ class User(AbstractUser):
         ('it', 'IT'),
         ('teacher', 'Teacher'),
         ('other', 'Other'),
-        ('regular_student', 'Regular Student'),
-        ('online_student', 'Online Student'),
-        ('diploma_student', 'Diploma Student'),
     ]
 
     role = models.CharField(max_length=20, choices=ROLE_CHOICES)

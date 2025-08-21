@@ -173,3 +173,11 @@ Student:
 	Courses
 		Filter by Course Type - All, Online, Offline, Regular, Deploma etc
 		Available Courses, My Enrollments
+
+Candidate:
+	Power:
+		Can create there new account [if anyone click apply job on index.html]
+		After Login, can view all Available jobs and can apply
+	DeshBoard
+		View List all Available Jobs [Can apply] (Only if update profile)
+		edit/update profile
