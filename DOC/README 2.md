@@ -4,6 +4,7 @@ A modern, secure, and user-friendly Institute Management System built with Djang
 InstaCore streamlines institute operations by providing authentication, profile management,  
 and API-based integration for external platforms.
 
+
 ## ✨ Features
 - Custom Django authentication with email verification
 - OTP-based account deletion for extra security
