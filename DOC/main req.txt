@@ -110,15 +110,6 @@ Faculty:
 		CRUD on Requests (accept, update or delete)
 	Reports
 		Show Daily, Monthly, Yearly Base role base Reports and can download if want (auto genareted from view or js)
-		
-job seeker:
-	Power:
-		Create temporary account on pressing apply job on index page
-		auto delete account if HR/Admin/Faculty reject or over dead-line on job post validity
-	DeshBoard
-		deshboard from master.html page
-		update/delete there account
-		view and apply all active job post
 
 Teacher:
 	Power:

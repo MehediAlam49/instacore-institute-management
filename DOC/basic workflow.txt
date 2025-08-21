@@ -1,0 +1,21 @@
+# Work-flow for InstaCore - Institute Management System
+
+- Landig page is index.html
+- login/signup:
+	- If do not have any user/admin on out BD > redirect setup.html
+		- Here have a signup page for only admin can create account [for the first time]
+	- signup: only student can create account
+	- login: any user can login and he/she redirect there role based deshboard
+		- every one can change there own profile, 
+		- admin: Admin can add admin, employee [just add <<username = email>>, email [UNIQE], ROLE_CHOICES, SUBROLE_CHOICES (if employee), default password = 12345678(encripted)], view all kind of activity, make notice, CRUD on employee and admin, 
+		- hr: HR can make job post, from list, thay call for interview, recruit new employee [neex admin approval], can view job related active
+		- faculty: faculty can add new course (assign minimum one teacher), view and edit, delete Students, can view course, teacher and student related active
+		- Teacher: Teacher can add course [need faculty approval], add another teacher on there own course (thay autp add), make class routine, get daily Attendance (course based), make Lesson Plan, get Assignments. View there own course and work related activity, student activity\
+		- Student: Student can make there own account. view all Available (active) course and get that. apply and get certificates (need faculty approval), view there own activity
+		- Candidate: Candidate can make apply jobs from there deshboard, edit there own profile
+	- for all
+		> anyone can update and delete there own profile from edit profile section
+		> all CRUD, Create and delete are save another model that work for future if we need history [admin can view this as activity]
+		> anyone change there own password from there profile section
+- IF anyone click Enroll Now on index > redirect signup.html
+- IF anyone click Apply Now on index > redirect and work for Apply jobs
